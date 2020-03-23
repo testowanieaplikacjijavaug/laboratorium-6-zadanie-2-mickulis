@@ -1,7 +1,9 @@
 target/
+build/
 # Default ignored files
 /workspace.xml
 .idea/
+.gradle/
 *.iml
 
 # Created by https://www.gitignore.io/api/intellij

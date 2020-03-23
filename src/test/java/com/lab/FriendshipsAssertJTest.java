@@ -1,6 +1,5 @@
 package com.lab;
 
-
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
@@ -97,6 +96,13 @@ public class FriendshipsAssertJTest
 	public void MakeFriendsEmptyInput()
 	{
 		Throwable thrown = catchThrowable(() -> friendships.makeFriends("", " aaa"));
+		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@Test
+	public void MakeFriendsWithOneself()
+	{
+		Throwable thrown = catchThrowable(() -> friendships.makeFriends("a", "a"));
 		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
 	}
 

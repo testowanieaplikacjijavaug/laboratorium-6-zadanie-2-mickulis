@@ -1,13 +1,11 @@
 package com.lab;
 
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -94,38 +92,87 @@ public class FriendshipsHamcrestTest
 		assertThat(friendships.getFriendsList("a"), containsInAnyOrder("b", "c", "d", "e", "f", "g"));
 	}
 
-//	@Test
-//	public void MakeFriendsNullInput()
-//	{
-//		Throwable thrown = catchThrowable(() -> friendships.makeFriends(null, " aaa"));
-//		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
-//	}
-//
-//	@Test
-//	public void MakeFriendsEmptyInput()
-//	{
-//		Throwable thrown = catchThrowable(() -> friendships.makeFriends("", " aaa"));
-//		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
-//	}
-//
-//	@Test
-//	public void GetFriendsNullInput()
-//	{
-//		Throwable thrown = catchThrowable(() -> friendships.getFriendsList(null));
-//		assertThat(thrown).isInstanceOf(NullPointerException.class);
-//	}
-//
-//	@Test
-//	public void AreFriendsNullFirstInput()
-//	{
-//		Throwable thrown = catchThrowable(() -> friendships.areFriends(null, "asd"));
-//		assertThat(thrown).isInstanceOf(NullPointerException.class);
-//	}
-//
-//	@Test
-//	public void AreFriendsNullSecondInput()
-//	{
-//		Throwable thrown = catchThrowable(() -> friendships.areFriends("asd", null));
-//		assertThat(thrown).isInstanceOf(NullPointerException.class);
-//	}
+	@Test
+	public void MakeFriendsNullInput()
+	{
+		try
+		{
+			friendships.makeFriends(null, " aaa");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(IllegalArgumentException.class));
+		}
+	}
+
+	@Test
+	public void MakeFriendsEmptyInput()
+	{
+		try
+		{
+			friendships.makeFriends("", " aaa");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(IllegalArgumentException.class));
+		}
+	}
+
+	@Test
+	public void MakeFriendsWithOneself()
+	{
+		try
+		{
+			friendships.makeFriends("a", "a");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(IllegalArgumentException.class));
+		}
+	}
+
+	@Test
+	public void GetFriendsNullInput()
+	{
+		try
+		{
+			friendships.getFriendsList(null);
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(NullPointerException.class));
+		}
+	}
+
+	@Test
+	public void AreFriendsNullFirstInput()
+	{
+		try
+		{
+			friendships.areFriends(null, "asd");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(NullPointerException.class));
+		}
+	}
+
+	@Test
+	public void AreFriendsNullSecondInput()
+	{
+		try
+		{
+			friendships.areFriends("asd", null);
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(NullPointerException.class));
+		}
+	}
 }
