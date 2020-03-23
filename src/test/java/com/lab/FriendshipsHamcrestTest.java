@@ -40,6 +40,15 @@ public class FriendshipsHamcrestTest
 	}
 
 	@Test
+	public void TwoRegisteredNotFriends()
+	{
+		friendships.makeFriends("a", "b");
+		friendships.makeFriends("c", "d");
+
+		assertThat(friendships.areFriends("c", "b"), is(false));
+	}
+
+	@Test
 	public void UnregisteredPersonsFriendlistIsEmpty()
 	{
 		assertThat(friendships.getFriendsList("UNREGISTERED"), empty());
@@ -93,7 +102,7 @@ public class FriendshipsHamcrestTest
 	}
 
 	@Test
-	public void MakeFriendsNullInput()
+	public void MakeFriendsNullFirstInput()
 	{
 		try
 		{
@@ -107,11 +116,39 @@ public class FriendshipsHamcrestTest
 	}
 
 	@Test
-	public void MakeFriendsEmptyInput()
+	public void MakeFriendsNullSecondInput()
+	{
+		try
+		{
+			friendships.makeFriends(null, " aaa");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(IllegalArgumentException.class));
+		}
+	}
+
+	@Test
+	public void MakeFriendsEmptyFirstInput()
 	{
 		try
 		{
 			friendships.makeFriends("", " aaa");
+			Assertions.fail();
+		}
+		catch(Exception e)
+		{
+			assertThat(e, instanceOf(IllegalArgumentException.class));
+		}
+	}
+
+	@Test
+	public void MakeFriendsEmptySecondInput()
+	{
+		try
+		{
+			friendships.makeFriends(" aaa", "");
 			Assertions.fail();
 		}
 		catch(Exception e)

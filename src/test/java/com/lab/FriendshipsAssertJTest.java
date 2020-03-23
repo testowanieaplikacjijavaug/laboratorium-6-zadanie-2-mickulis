@@ -36,6 +36,15 @@ public class FriendshipsAssertJTest
 	}
 
 	@Test
+	public void TwoRegisteredNotFriends()
+	{
+		friendships.makeFriends("a", "b");
+		friendships.makeFriends("c", "d");
+
+		assertThat(friendships.areFriends("c", "b")).isFalse();
+	}
+
+	@Test
 	public void UnregisteredPersonsFriendlistIsEmpty()
 	{
 		assertThat(friendships.getFriendsList("UNREGISTERED")).isEmpty();
@@ -86,16 +95,30 @@ public class FriendshipsAssertJTest
 	}
 
 	@Test
-	public void MakeFriendsNullInput()
+	public void MakeFriendsNullFirstInput()
 	{
 		Throwable thrown = catchThrowable(() -> friendships.makeFriends(null, " aaa"));
 		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
-	public void MakeFriendsEmptyInput()
+	public void MakeFriendsNullSecondInput()
+	{
+		Throwable thrown = catchThrowable(() -> friendships.makeFriends(" aaa", null));
+		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@Test
+	public void MakeFriendsEmptyFirstInput()
 	{
 		Throwable thrown = catchThrowable(() -> friendships.makeFriends("", " aaa"));
+		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@Test
+	public void MakeFriendsEmptySecondInput()
+	{
+		Throwable thrown = catchThrowable(() -> friendships.makeFriends(" aaa", ""));
 		assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
 	}
 
